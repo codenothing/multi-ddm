@@ -1,6 +1,6 @@
 /**
- * Drop Down Menu - CSS Temp
- * March 26, 2009
+ * Multi-level Drop Down Menu 2.0 - CSS Temp
+ * August 22, 2009
  * Corey Hart @ http://www.codenothing.com
  */ 
 
@@ -32,7 +32,7 @@
 	border-left: 1px solid #545454;
 }
 
-#multi-ddm > li ol {
+#multi-ddm > li ul {
 	display: none;
 	list-style: none;
 	position: absolute;
@@ -41,7 +41,7 @@
 	padding: 0;
 }
 
-#multi-ddm > li ol a {
+#multi-ddm > li ul a {
 	display: block;
 	width: 152px;
 	padding: 5px;
@@ -55,30 +55,30 @@
 	background-color: #c5c5c5;
 }
 
-#multi-ddm > li ol li a.first {
+#multi-ddm > li ul li a.first {
 	border-top: 1px solid #545454;
 }
 
-#multi-ddm > li ol .child-hover1 {
+#multi-ddm > li ul .child-hover1 {
 	background-color: #f1f1f1;
 }
 
-#multi-ddm > li ol .child-hover2 {
+#multi-ddm > li ul .child-hover2 {
 	background-color: black;
 	color: white;
 }
 
-#multi-ddm > li ol .child-hover3 {
+#multi-ddm > li ul .child-hover3 {
 	background-color: purple;
 	color: white;
 }
 
-#multi-ddm > li ol .child-hover4 {
+#multi-ddm > li ul .child-hover4 {
 	background-color: blue;
 	color: white;
 }
 
-#multi-ddm > li ol li ol {
+#multi-ddm > li ul li ul {
 	margin: -29px 0 0 163px;
 	position: absolute;
 }

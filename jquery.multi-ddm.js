@@ -1,90 +1,84 @@
 /**
- * Multi-level Drop Down Menu (multi-ddm)
- * March 26, 2009
+ * Multi-level Drop Down Menu 2.0
+ * August 22, 2009
  * Corey Hart @ http://www.codenothing.com
- *
- * @timer: [Default 500] Time in milliseconds to hold menu's open on mouseouts
- * @parentMO: CSS class to add/remove from parent menu on mouseover/mouseouts
- * @childMO: CSS class to add/remove to ALL child menus
- * @levels: Array of CSS classes in order of appearance on drop downs
- * @parentTag: List type of the parent menu ('ul' or 'ol')
- * @childTag: List type of each menu level ('ul' or 'ol')
- * @tags: List type of each level in order ('ul' or 'ol' for each)
- * @numberOfLevels: [Default 5] Number of levels the menu has. Will default to 
- * 	length of levels array when childMO is null.
  */ 
 ;(function($){
+	// Needed for IE Compatibility
+	$.fn.reverse = [].reverse;
+
 	$.fn.dropDownMenu = function(options){
-		var menus = new Array();
-		var css;
-		var tag;
-		var internal;
-		var timeout;
-		var settings = $.extend({
-			timer: 500,
-			parentMO: null,
-			childMO: null,
-			levels: [],
-			parentTag: 'ul',
-			childTag: 'ul',
-			tags: [],
-			numberOfLevels: 5
-		},options||{});
-
-		// Set number of levels
-		if (settings.tags.length > 0){
-			settings.numberOfLevels = settings.tags.length;
-		}else if (settings.levels.length){
-			settings.numberOfLevels = settings.levels.length;
-		}
-
-		// Set css levels with childMO
-		if (settings.childMO){
-			for (var i=0; i<settings.numberOfLevels; i++) settings.levels[i] = settings.childMO;
-		}
-
-		// Set tag levels with tag
-		if (settings.tags.length < 1){
-			for (var i=0; i<settings.numberOfLevels; i++) settings.tags[i] = settings.childTag;
-		}
-
-		// Run through each level
-		menus[0] = $(this).children('li');
-		for (var i=1; i<settings.numberOfLevels+2; i++){
-			// Tags/CSS
-			css = (i==1) ? settings.parentMO : settings.levels[i-2];
-			tag = (i==1) ? settings.parentTag : settings.tags[i-2];
-
-			// level selector
-			menus[i] = menus[i-1].children(settings.tag).children('li');
-
-			// Action
-			menus[i-1].attr({rel: css+';'+tag}).mouseover(function(){
-				if (timeout) clearTimeout(timeout);
-				internal = $(this).attr("rel").split(";");
-				$(this).siblings('li').children('a').removeClass(internal[0]).siblings(internal[1]).hide();
-				$(this).children('a').addClass(internal[0]).siblings(internal[1]).show();
-			}).mouseout(function(){
-				internal = $(this).attr("rel").split(";");
-				if (internal[0] == settings.parentMO){
-					timeout = setTimeout(function(){closemenu();}, settings.timer);
-				}
-			});
-		}
-
-		// Allows user option to close menus by clicking outside the menu on the body
-		$(document).click(function(){closemenu();});
-
-		// Closes all open menus
-		var closemenu = function(){
-			for (var i=menus.length; i>-1; i--){
-				if (menus[i] && menus[i].attr("rel")){
-					internal = menus[i].attr("rel").split(";");
-					menus[i].children(internal[1]).hide().siblings('a').removeClass(internal[0]);
-				}
+		return this.each(function(){
+			// Defaults with metadata support
+			var $mainObj = $(this), menus = [], classname, timeout, $obj, $obj2, 
+				settings = $.extend({
+					timer: 500,
+					parentMO: null,
+					childMO: null,
+					levels: [],
+					numberOfLevels: 5
+				}, options||{}, $.metadata ? $mainObj.metadata() : {});
+	
+			// Set number of levels
+			if (settings.levels.length){
+				settings.numberOfLevels = settings.levels.length;
+			}else{
+				settings.levels[0] = settings.parentMO ? settings.parentMO : settings.childMO;
+				for (var i=1; i<settings.numberOfLevels+1; i++)
+					settings.levels[i] = settings.childMO;
 			}
-			$('a', menus[0]).removeClass(settings.parentMO);
-			if (timeout) clearTimeout(timeout);
-		}
+	
+			// Run through each level
+			menus[0] = $mainObj.children('li');
+			for (var i=1; i<settings.numberOfLevels+1; i++){
+				// Set Vars
+				classname = settings.levels[i-1];
+				menus[i] = menus[i-1].children('ul').children('li');
+	
+				// Action
+				menus[i-1].mouseover(function(){
+					// Defaults
+					$obj = $(this); $obj2 = $obj.children('a');
+	
+					// Clear closing timer if open
+					if (timeout) 
+						clearTimeout(timeout);
+	
+					// Remove all mouseover classes
+					$('a', $obj.siblings('li')).each(function(){
+						var $a = $(this), classname = $a.data('classname');
+						if ($a.hasClass(classname))
+							$a.removeClass(classname);
+					});
+	
+					// Hide open menus and open current menu
+					$obj.siblings('li').find('ul:visible').reverse().hide();
+					$obj2.addClass( $obj2.data('classname') ).siblings('ul').show();
+				}).mouseout(function(){
+					if ($(this).children('a').data('classname') == settings.levels[0])
+						timeout = setTimeout(closemenu, settings.timer);
+				}).children('a').data('classname', classname);
+			}
+	
+			// Allows user option to close menus by clicking outside the menu on the body
+			$(document).click(closemenu);
+	
+			// Closes all open menus
+			function closemenu(){
+				// Clear mouseovers
+				$('a', $mainObj).each(function(){
+					var $a = $(this), classname = $a.data('classname');
+					if ($a.hasClass(classname))
+						$a.removeClass(classname);
+				});
+
+				// Close Menus backwards for IE Compatibility
+				$('ul:visible', $mainObj).reverse().hide();
+
+				// Clear timer var
+				if (timeout) 
+					clearTimeout(timeout);
+			}
+		});
 	};
 })(jQuery);

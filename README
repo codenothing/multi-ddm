@@ -1,13 +1,3 @@
-Multi-level Drop Down Menu (multi-ddm)
-March 26, 2009
+Multi-level Drop Down Menu 2.0
+August 22, 2009
 Corey Hart @ http://www.codenothing.com
-
-@timer: [Default 500] Time in milliseconds to hold menu's open on mouseouts
-@parentMO: CSS class to add/remove from parent menu on mouseover/mouseouts
-@childMO: CSS class to add/remove to ALL child menus
-@levels: Array of CSS classes in order of appearance on drop downs
-@parentTag: List type of the parent menu ('ul' or 'ol')
-@childTag: List type of each menu level ('ul' or 'ol')
-@tags: List type of each level in order ('ul' or 'ol' for each)
-@numberOfLevels: [Default 5] Number of levels the menu has. Will default to 
-	length of levels array when childMO is null.

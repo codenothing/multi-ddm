@@ -10,18 +10,13 @@
 	margin: 0;
 }
 
-#multi-ddm  li {
+#multi-ddm li {
 	float: left;
 	margin: 0px;
 }
 
 #multi-ddm li li {
 	float: none;
-}
-
-/* IE6 adds 2px in margin between normal li elements */
-#multi-ddm.ie6 li ul li {
-	margin-top: -2px;
 }
 
 #multi-ddm li a {
@@ -47,7 +42,7 @@
 	text-align: left;
 }
 
-#multi-ddm li .parent-hover {
+#multi-ddm li a.parent-hover {
 	background-color: #c5c5c5;
 	border-left: 1px solid #545454;
 }
@@ -65,27 +60,27 @@
 	border-top: 1px solid #545454;
 }
 
-#multi-ddm li ul .child-hover1 {
+#multi-ddm li ul li a.child-hover1 {
 	background-color: #f1f1f1;
 }
 
-#multi-ddm li ul .child-hover2 {
+#multi-ddm li ul li a.child-hover2 {
 	background-color: black;
 	color: white;
 }
 
-#multi-ddm li ul .child-hover3 {
+#multi-ddm li ul li a.child-hover3 {
 	background-color: purple;
 	color: white;
 }
 
-#multi-ddm li ul .child-hover4 {
+#multi-ddm li ul li a.child-hover4 {
 	background-color: blue;
 	color: white;
 }
 
 #multi-ddm li ul li ul {
-	margin: -28px 0 0 163px;
+	margin: -26px 0 0 163px;
 	position: absolute;
 }
 

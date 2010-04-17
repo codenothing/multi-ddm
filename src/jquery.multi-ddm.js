@@ -1,6 +1,6 @@
 /*
- * Multi-level Drop Down Menu [VERSION]
- * [DATE]
+ * Multi-level Drop Down Menu 3.0
+ * April 17, 2010
  * Corey Hart @ http://www.codenothing.com
  */ 
 (function( $, window, undefined ){

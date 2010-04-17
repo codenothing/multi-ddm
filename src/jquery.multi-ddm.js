@@ -5,7 +5,7 @@
  */ 
 (function( $, window, undefined ){
 	// Needed for IE Compatibility (Closing menus must be done backwards in IE)
-	// Ensure that no complications arise from other libraries modifiying the 
+	// Ensure that no complications arise from other libraries modifying the 
 	// array functionality (and hope that they store the old reverse function into _reverse)
 	var el, a = Array.prototype, Reverse = a._reverse || a.reverse;
 
@@ -25,7 +25,7 @@
 	}
 
 	
-	// Exspose the drop down menu
+	// Expose the drop down menu
 	$.fn.dropDownMenu = function( options ) {
 		return this.each(function(){
 			// Defaults with metadata support

@@ -1,0 +1,17 @@
+###
+### Multi Level Drop Down Menu [VERSION] Change Log
+### [DATE]
+### Corey Hart @ http://www.codenothing.com
+###
+
+
+# New Features
+
+-bgiframe options can be stored in the settings which will be passed to the bgiframe plugin
+-bgiframe now only gets called on initialization, instead of on every mouseover
+-Using jQuery's delegate instead of mouse events on every level/element
+
+# Possible Breaks
+-Removed jQuery.fn.reverse creation (Using native Array.prototype.reverse)
+-Removed jQuery.fn.bgiframe creation (Uses the plugin if it's installed, but doesn't create the namespace)
+-Removed dependency on numberOfLevels setting
